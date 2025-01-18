@@ -22,6 +22,7 @@ CREATE TABLE
     seasons season_stats [],
     scoring_class scoring_class,
     year_since_last_season INTEGER,
+    is_active BOOLEAN,
     current_season INTEGER,
     PRIMARY KEY(player_name, current_season)
   );
