@@ -92,3 +92,15 @@ on v.identifier = e.subject_identifier
 and e.subject_type = v.type
 group by 1 --Group by the first column, which is 'player_name'
 order by 2 DESC; --Order by the second column, which is 'max_points'
+
+select v.properties ->> 'player_name',
+    cast(e.properties ->> 'number_of_games' as REAL) / 
+    case 
+        when cast(e.properties ->> 'total_points' as REAL) = 0 then 1
+        else  cast(e.properties ->> 'total_points' as REAL)
+    end
+from vertices v
+join edges e
+on v.identifier = e.subject_identifier
+and e.subject_type = v.type
+where object_type = 'player'
